@@ -139,7 +139,7 @@ https://www.qt.io/download-qt-installer
 
 ```bash
 # 克隆仓库
-git clone https://github.com/your-username/HFUT-Huffman-Compressor.git
+git clone https://github.com/KingYeon-Zoo/HFUT-Huffman-Compressor.git
 cd HFUT-Huffman-Compressor
 
 # 打开Qt Creator
