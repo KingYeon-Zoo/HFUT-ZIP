@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>HFUT 哈夫曼压缩工具</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="mainLayout">
+    <property name="spacing">
+     <number>30</number>
+    </property>
+    <property name="leftMargin">
+     <number>50</number>
+    </property>
+    <property name="topMargin">
+     <number>50</number>
+    </property>
+    <property name="rightMargin">
+     <number>50</number>
+    </property>
+    <property name="bottomMargin">
+     <number>50</number>
+    </property>
+    <item>
+     <widget class="QLabel" name="titleLabel">
+      <property name="text">
+       <string>HFUT 哈夫曼压缩工具</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="styleSheet">
+       <string>font-size: 28px; font-weight: bold; color: #333; margin-bottom: 20px;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="dragDropFrame">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <property name="styleSheet">
+       <string>QFrame { border: 2px dashed #ccc; border-radius: 15px; background-color: #f8f9fa; }</string>
+      </property>
+      <layout class="QVBoxLayout" name="dragDropLayout">
+       <property name="spacing">
+        <number>20</number>
+       </property>
+       <property name="leftMargin">
+        <number>40</number>
+       </property>
+       <property name="topMargin">
+        <number>40</number>
+       </property>
+       <property name="rightMargin">
+        <number>40</number>
+       </property>
+       <property name="bottomMargin">
+        <number>40</number>
+       </property>
+       <item>
+        <widget class="FileEdit" name="lineEdit_3">
+         <property name="text">
+          <string>拖拽文件到此处或点击选择文件</string>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="styleSheet">
+          <string>border: none; background: transparent; font-size: 16px; color: #666;</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="pathFrame">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <property name="styleSheet">
+       <string>QFrame { border: 1px solid #ddd; border-radius: 10px; background-color: white; }</string>
+      </property>
+      <layout class="QVBoxLayout" name="pathLayout">
+       <property name="spacing">
+        <number>15</number>
+       </property>
+       <property name="leftMargin">
+        <number>30</number>
+       </property>
+       <property name="topMargin">
+        <number>30</number>
+       </property>
+       <property name="rightMargin">
+        <number>30</number>
+       </property>
+       <property name="bottomMargin">
+        <number>30</number>
+       </property>
+       <item>
+        <layout class="QHBoxLayout" name="inputLayout">
+         <item>
+          <widget class="QLabel" name="inputLabel">
+           <property name="text">
+            <string>输入文件：</string>
+           </property>
+           <property name="styleSheet">
+            <string>font-size: 14px; font-weight: bold; color: #333;</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit">
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+           <property name="styleSheet">
+            <string>border: 1px solid #ccc; border-radius: 5px; padding: 8px; font-size: 12px;</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_3">
+           <property name="text">
+            <string>选择文件</string>
+           </property>
+           <property name="styleSheet">
+            <string>QPushButton { border: 1px solid #007AFF; border-radius: 8px; background-color: #007AFF; color: white; padding: 8px 16px; font-size: 12px; } QPushButton:hover { background-color: #0056CC; }</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="outputLayout">
+         <item>
+          <widget class="QLabel" name="outputLabel">
+           <property name="text">
+            <string>输出路径：</string>
+           </property>
+           <property name="styleSheet">
+            <string>font-size: 14px; font-weight: bold; color: #333;</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit_2">
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+           <property name="styleSheet">
+            <string>border: 1px solid #ccc; border-radius: 5px; padding: 8px; font-size: 12px;</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_4">
+           <property name="text">
+            <string>选择路径</string>
+           </property>
+           <property name="styleSheet">
+            <string>QPushButton { border: 1px solid #007AFF; border-radius: 8px; background-color: #007AFF; color: white; padding: 8px 16px; font-size: 12px; } QPushButton:hover { background-color: #0056CC; }</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="controlLayout">
+      <item>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="title">
+         <string>操作模式</string>
+        </property>
+        <property name="styleSheet">
+         <string>QGroupBox { font-size: 14px; font-weight: bold; color: #333; border: 1px solid #ddd; border-radius: 8px; margin-top: 10px; padding-top: 10px; } QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 0 5px 0 5px; }</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QRadioButton" name="radioButton">
+           <property name="acceptDrops">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>压缩</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+           <property name="styleSheet">
+            <string>font-size: 12px; color: #333;</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioButton_2">
+           <property name="text">
+            <string>解压缩</string>
+           </property>
+           <property name="styleSheet">
+            <string>font-size: 12px; color: #333;</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="compressionLevelGroupBox">
+        <property name="title">
+         <string>压缩级别</string>
+        </property>
+        <property name="styleSheet">
+         <string>QGroupBox { font-size: 14px; font-weight: bold; color: #333; border: 1px solid #ddd; border-radius: 8px; margin-top: 10px; padding-top: 10px; } QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 0 5px 0 5px; }</string>
+        </property>
+        <layout class="QVBoxLayout" name="compressionLevelLayout">
+         <item>
+          <widget class="QComboBox" name="compressionLevelComboBox">
+           <property name="styleSheet">
+            <string>QComboBox { border: 1px solid #ccc; border-radius: 5px; padding: 5px; font-size: 12px; background-color: white; } QComboBox::drop-down { border: none; } QComboBox::down-arrow { image: none; border: none; }</string>
+           </property>
+           <item>
+            <property name="text">
+             <string>快速压缩</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>智能压缩 (推荐)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>最大压缩</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="compressionLevelDescLabel">
+           <property name="text">
+            <string>智能压缩会根据文件特征自动选择最佳格式</string>
+           </property>
+           <property name="styleSheet">
+            <string>font-size: 10px; color: #666; padding: 2px;</string>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>开始压缩</string>
+        </property>
+        <property name="styleSheet">
+         <string>QPushButton { border: none; border-radius: 12px; background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #34C759, stop:1 #30A14E); color: white; padding: 12px 24px; font-size: 16px; font-weight: bold; } QPushButton:hover { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #30A14E, stop:1 #28A745); } QPushButton:pressed { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #28A745, stop:1 #1E7E34); }</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QProgressBar" name="progressBar">
+      <property name="value">
+       <number>0</number>
+      </property>
+      <property name="styleSheet">
+       <string>QProgressBar { border: 1px solid #ddd; border-radius: 8px; background-color: #f0f0f0; text-align: center; } QProgressBar::chunk { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #007AFF, stop:1 #0056CC); border-radius: 7px; }</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>FileEdit</class>
+   <extends>QLineEdit</extends>
+   <header location="global">fileedit.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
