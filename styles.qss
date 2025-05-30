@@ -1,0 +1,247 @@
+/* 主窗口背景 */
+QMainWindow {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, 
+                stop:0 #f8f9fa, stop:1 #e9ecef);
+}
+
+/* 中央组件 */
+QWidget#centralwidget {
+    background: transparent;
+}
+
+/* 标题标签 */
+QLabel#titleLabel {
+    font-family: "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: #1d1d1f;
+    margin: 20px 0;
+}
+
+/* 拖拽区域框架 */
+QFrame#dragDropFrame {
+    border: 2px dashed #c7c7cc;
+    border-radius: 16px;
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, 
+                stop:0 #ffffff, stop:1 #f2f2f7);
+    min-height: 120px;
+}
+
+QFrame#dragDropFrame:hover {
+    border-color: #007aff;
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, 
+                stop:0 #ffffff, stop:1 #f0f8ff);
+}
+
+/* 拖拽文本 */
+FileEdit#lineEdit_3 {
+    border: none;
+    background: transparent;
+    font-family: "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    font-size: 18px;
+    color: #8e8e93;
+    font-weight: 500;
+}
+
+/* 路径框架 */
+QFrame#pathFrame {
+    border: 1px solid #d1d1d6;
+    border-radius: 12px;
+    background: #ffffff;
+    padding: 10px;
+}
+
+/* 标签样式 */
+QLabel#inputLabel, QLabel#outputLabel {
+    font-family: "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1d1d1f;
+    min-width: 80px;
+}
+
+/* 输入框样式 */
+QLineEdit {
+    border: 1px solid #d1d1d6;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-family: "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    color: #1d1d1f;
+    background: #ffffff;
+    selection-background-color: #007aff;
+}
+
+QLineEdit:focus {
+    border-color: #007aff;
+    outline: none;
+}
+
+QLineEdit:read-only {
+    background: #f2f2f7;
+    color: #8e8e93;
+}
+
+/* 按钮基础样式 */
+QPushButton {
+    font-family: "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    min-width: 100px;
+}
+
+/* 选择文件/路径按钮 */
+QPushButton#pushButton_3, QPushButton#pushButton_4 {
+    background: #007aff;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+QPushButton#pushButton_3:hover, QPushButton#pushButton_4:hover {
+    background: #0056cc;
+}
+
+QPushButton#pushButton_3:pressed, QPushButton#pushButton_4:pressed {
+    background: #004499;
+}
+
+/* 主操作按钮 */
+QPushButton#pushButton {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, 
+                stop:0 #34c759, stop:1 #30a14e);
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 14px;
+    padding: 16px 32px;
+    min-width: 140px;
+}
+
+QPushButton#pushButton:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, 
+                stop:0 #30a14e, stop:1 #28a745);
+}
+
+QPushButton#pushButton:pressed {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, 
+                stop:0 #28a745, stop:1 #1e7e34);
+}
+
+/* 分组框样式 */
+QGroupBox {
+    font-family: "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1d1d1f;
+    border: 1px solid #d1d1d6;
+    border-radius: 10px;
+    margin-top: 12px;
+    padding-top: 16px;
+    background: #ffffff;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 12px;
+    padding: 0 8px;
+    background: #ffffff;
+}
+
+/* 单选按钮样式 */
+QRadioButton {
+    font-family: "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    color: #1d1d1f;
+    spacing: 8px;
+}
+
+QRadioButton::indicator {
+    width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    border: 2px solid #d1d1d6;
+    background: #ffffff;
+}
+
+QRadioButton::indicator:checked {
+    border-color: #007aff;
+    background: #007aff;
+}
+
+QRadioButton::indicator:checked::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background: #ffffff;
+    margin: 3px;
+}
+
+/* 进度条样式 */
+QProgressBar {
+    border: 1px solid #d1d1d6;
+    border-radius: 8px;
+    background: #f2f2f7;
+    text-align: center;
+    font-family: "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    color: #1d1d1f;
+    height: 24px;
+}
+
+QProgressBar::chunk {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, 
+                stop:0 #007aff, stop:1 #0056cc);
+    border-radius: 7px;
+    margin: 1px;
+}
+
+/* 消息框样式 */
+QMessageBox {
+    background: #ffffff;
+    font-family: "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+}
+
+QMessageBox QPushButton {
+    background: #007aff;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    min-width: 80px;
+}
+
+QMessageBox QPushButton:hover {
+    background: #0056cc;
+}
+
+/* 滚动条样式 */
+QScrollBar:vertical {
+    background: #f2f2f7;
+    width: 12px;
+    border-radius: 6px;
+}
+
+QScrollBar::handle:vertical {
+    background: #c7c7cc;
+    border-radius: 6px;
+    min-height: 20px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: #aeaeb2;
+}
+
+/* 工具提示样式 */
+QToolTip {
+    background: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    font-size: 12px;
+} 

@@ -1,0 +1,286 @@
+# Qt-specific files
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qbs.user.*
+*.moc
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+ui_*.h
+*.qmlc
+*.jsc
+Makefile*
+*build-*
+*.Debug
+*.Release
+
+# QtCreator files
+CMakeLists.txt.user*
+*.autosave
+
+# QtCtreator Qml
+*.qmlproject.user
+*.qmlproject.user.*
+
+# C++ objects and libs
+*.slo
+*.lo
+*.o
+*.a
+*.la
+*.lai
+*.so
+*.so.*
+*.dll
+*.dylib
+
+# Qt-es
+object_script.*.Release
+object_script.*.Debug
+*_plugin_import.cpp
+/.qmake.cache
+/.qmake.stash
+*.pro.user.*
+*.qws
+*.qph
+*.pdb
+
+# Qt unit tests
+target_wrapper.*
+
+# QtCreator
+*.autosave
+CMakeLists.txt.user
+
+# QtCreator Qml
+*.qmlproject.user
+*.qmlproject.user.*
+
+# QtCreator CMake
+CMakeLists.txt.user*
+
+# QtCreator 4.8< compilation database 
+compile_commands.json
+
+# QtCreator local machine specific files for imported projects
+*creator.user*
+
+# Visual Studio files
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.vcproj
+*.vsprops
+*.sln
+*.suo
+*.user
+*.ncb
+*.aps
+*.idb
+*.pdb
+*.exp
+*.ilk
+*.lib
+*.exe
+*.dll
+*.manifest
+*.res
+*.tlog/
+*.log
+vc*.pdb
+ipch/
+.vs/
+x64/
+x86/
+Debug/
+Release/
+DebugPS/
+ReleasePS/
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# CLion
+.idea/
+cmake-build-*/
+
+# Code::Blocks
+*.depend
+*.layout
+*.cbp
+
+# Dev-C++
+*.dev
+
+# CodeLite
+*.codelite-workspace
+.codelitewsp/
+
+# Build directories
+build/
+build-*/
+bin/
+lib/
+debug/
+release/
+Debug/
+Release/
+*-build-*/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Testing/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+
+# QMake
+Makefile*
+!Makefile.am
+object_script.*.Release
+object_script.*.Debug
+
+# Generated files
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+*.moc
+
+# Temporary files
+*~
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+*.orig
+*.rej
+*_backup
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Windows
+*.lnk
+
+# Linux
+*~
+
+# macOS
+.AppleDouble
+.LSOverride
+Icon
+.DocumentRevisions-V100
+.fseventsd
+.TemporaryItems
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Package manager files
+*.dmg
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Test files
+test_files/
+test_data/
+test_output/
+*.test
+*_test.*
+
+# Documentation build
+docs/_build/
+docs/build/
+site/
+
+# Logs
+*.log
+logs/
+log/
+
+# Runtime data
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.gcov
+*.gcda
+*.gcno
+
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm
+
+# Backup files
+*.backup
+*.save
+
+# Project specific
+# 忽略编译后的可执行文件
+HUFFMAN
+HUFFMAN.exe
+hfutzip
+hfutzip.exe
+
+# 忽略测试和临时文件
+test_compression.txt
+test_*.hfut
+sample_*.txt
+demo_*.*
+temp_*.*
+
+# 忽略用户特定配置
+config.ini
+settings.json
+user_preferences.*
+
+# 忽略IDE项目文件
+*.workspace
+*.project
+*.cproject
+*.settings/
+
+# 忽略压缩测试文件
+*.hfut
+test_files/
+samples/
+
+# 忽略文档生成文件
+docs/html/
+docs/latex/
+doxygen_warnings.txt
+
+# 忽略打包文件
+dist/
+package/
+installer/
+*.msi
+*.pkg
+
+# 忽略缓存目录
+.cache/
+.tmp/
