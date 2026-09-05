@@ -88,6 +88,7 @@ public:
     void delete_node(node *n);   // 释放空间
 
 signals:
+    void zip_failed(const QString& message);
     void zip_finished(); // 已完成
 };
 

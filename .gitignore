@@ -284,3 +284,5 @@ installer/
 # 忽略缓存目录
 .cache/
 .tmp/
+/tests/build/
+/build-verify/

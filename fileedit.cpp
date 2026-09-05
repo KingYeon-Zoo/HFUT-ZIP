@@ -56,7 +56,7 @@ void FileEdit::dropEvent(QDropEvent *event)
                 // 获取文件的后缀
                 QString suffix = temp.suffix();
                 // 更改文件的后缀
-                path_out = path.replace(suffix, "hfut");
+                path_out = QFileInfo(path).absolutePath() + "/" + QFileInfo(path).completeBaseName() + ".hfut";
                 emit set_out_path(path_out);
             }
         }
@@ -81,7 +81,7 @@ void FileEdit::dropEvent(QDropEvent *event)
                 // 获取文件的后缀
                 QString suffix = temp.suffix();
                 // 更改文件的后缀
-                path_out = path.replace(suffix, get_suffix(path_in));
+                path_out = QFileInfo(path).absolutePath() + "/" + QFileInfo(path).completeBaseName() + "." + get_suffix(path_in);
                 emit set_out_path(path_out);
             }
         }
