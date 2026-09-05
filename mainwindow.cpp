@@ -47,6 +47,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, &MainWindow::make_zip, zip, &hfutzip::process_file_makezip);
     connect(this, &MainWindow::process_zip, zip, &hfutzip::process_file);
     connect(zip, &hfutzip::zip_finished, this, &MainWindow::zip_finished);
+    connect(zip, &hfutzip::zip_failed, this, [this](const QString& message) {
+        msgBox.hide();
+        ui->progressBar->hide();
+        ui->pushButton->show();
+        QMessageBox::warning(this, "处理失败", message);
+        initialize_all();
+    });
     zip_thread->start(); // 记住
     
     // 初始化压缩级别选择
@@ -128,7 +135,7 @@ void MainWindow::on_pushButton_3_clicked()
             // 获取文件的后缀
             QString suffix = temp.suffix();
             // 更改文件的后缀
-            zip->path_out = path.replace(suffix, "hfut");
+            zip->path_out = QFileInfo(path).absolutePath() + "/" + QFileInfo(path).completeBaseName() + ".hfut";
             ui->lineEdit_2->setText(zip->path_out);
             path_in_cor = 1;
             path_out_cor = 1;
@@ -150,7 +157,7 @@ void MainWindow::on_pushButton_3_clicked()
             // 获取文件的后缀
             QString suffix = temp.suffix();
             // 更改文件的后缀
-            zip->path_out = path.replace(suffix, zip->get_suffix());
+            zip->path_out = QFileInfo(path).absolutePath() + "/" + QFileInfo(path).completeBaseName() + "." + zip->get_suffix();
             ui->lineEdit_2->setText(zip->path_out);
             path_in_cor = 1;
             path_out_cor = 1;
@@ -246,12 +253,7 @@ void MainWindow::on_pushButton_clicked()
     }
 
     // 在这里文件已经创建，如果放在上面的上面，每次都会"警告", "文件已存在，是否覆盖"，但是上面的程序检测了if(!QFile(zip->path_out).open(QIODevice::WriteOnly))吗
-    if (!QFile(zip->path_out).open(QIODevice::WriteOnly)) // 文件不存在会返回true吗，就是可写？但是open不了？ReadOnly这种情况一定返回false？
-    {
-        QMessageBox::critical(this, "错误", "无法写入文件", QMessageBox::Ok);
-        initialize_all();
-        return;
-    }
+
 
     if (ui->lineEdit_3->bt_show == 1)
     {

@@ -1,3 +1,4 @@
+#include "safe_codec.h"
 #include "hfutzip.h"
 
 void hfutzip::delete_node(node *n)
@@ -21,102 +22,9 @@ bool hfutzip::compare(node *n1, node *n2)
     return n1->count > n2->count; // 这里先后之后再试一试
 }
 
-void hfutzip::process_file_makezip()
-{
-    // 预处理，统计数目
-    QFile infile(path_in);            // 创建一个QFile对象，指定要读取的文件名
-    infile.open(QIODevice::ReadOnly); // 以只读模式打开文件
-    unsigned char temp;               // 定义一个无符号字符变量，用于存储读取到的字节
-    while (!infile.atEnd())
-    {                                                    // 循环读取文件，直到结束
-        infile.read(reinterpret_cast<char *>(&temp), 1); // 读取一个字节，转换成char类型的指针
-        count_char[temp]++;                              // 统计该字节出现的次数
-    }
-    infile.close(); // 关闭文件
-
-    // 构建优化的频率表
-    char_freq_optimized.clear();
-    for (int i = 0; i < 256; i++) {
-        if (count_char[i] != 0) {
-            char_freq_optimized.push_back(CharFreq(i, count_char[i]));
-        }
-    }
-
-    // 初始化vec
-    for (int i = 0; i < 256; i++)
-    {
-        if (count_char[i] != 0)
-        {
-            node *temp_n = new node(count_char[i], i);
-            vec_char_final.push_back(temp_n);
-        }
-    }
-
-    // 创建优先队列
-    char_final = std::priority_queue<node *, std::vector<node *>, decltype(&hfutzip::compare)>(vec_char_final.begin(), vec_char_final.end(), &hfutzip::compare);
-    // cout << char_final.top()->count;//测试//发现是最低的在队列头
-
-    // 创建哈夫曼树
-    while (char_final.size() != 1) // 就剩一个的时候是根节点
-    {
-        node *temp_n1 = char_final.top();
-        char_final.pop();
-        node *temp_n2 = char_final.top();
-        char_final.pop();
-        node *temp_n3 = new node(temp_n1->count + temp_n2->count, 0);
-        temp_n3->lchild = temp_n1;
-        temp_n3->rchild = temp_n2;
-        char_final.push(temp_n3);
-    }
-    root = char_final.top();
-
-    // 赋予编码
-    binary_coding_tree(root);
-
-    // 将编码写入数组
-    for (int i = 0; i < (int)vec_char_final.size(); i++)
-    {
-        binary_coding[vec_char_final[i]->a] = vec_char_final[i]->binary_coding; // a对应unsigned
-    }
-
-    // 使用智能格式选择
-    char selected_format = 0;
-    if (compression_level == LEVEL_STANDARD) {
-        // 自动选择最佳格式
-        selected_format = selectBestCompressionFormat();
-    } else {
-        // 手动指定格式
-        switch (compression_level) {
-            case LEVEL_FAST:
-                selected_format = 'O'; // 快速压缩使用O格式
-                break;
-            case LEVEL_MAXIMUM:
-                selected_format = 'U'; // 最大压缩使用U格式
-                break;
-            default:
-                selected_format = 0; // 原始格式
-                break;
-        }
-    }
-
-    // 根据选择的格式进行压缩
-    switch (selected_format) {
-        case 'O':
-            qDebug() << "使用优化格式'O'进行压缩";
-            create_zip_file_optimized();
-            break;
-        case 'U':
-            qDebug() << "使用超级优化格式'U'进行压缩";
-            create_zip_file_ultra();
-            break;
-        default:
-            qDebug() << "使用原始格式进行压缩";
-            create_zip_file();
-            break;
-    }
-
-    delete_node(root);
-    emit zip_finished();
+void hfutzip::process_file_makezip() {
+    try { SafeCodec::compress(path_in, path_out, compression_level); emit zip_finished(); }
+    catch (const std::exception& e) { emit zip_failed(QString::fromUtf8(e.what())); }
 }
 
 void hfutzip::create_zip_file()
@@ -224,118 +132,9 @@ void hfutzip::jud_binary_out(bool b) // 写入解压缩文件
     }
 }
 
-void hfutzip::process_file()
-{
-    // 使用新的格式检测函数
-    char format_type = detect_file_format_type();
-    
-    if (format_type == 'O') {
-        // 使用优化格式解压缩
-        process_file_optimized();
-        return;
-    } else if (format_type == 'U') {
-        // 使用超级优化格式解压缩
-        process_file_ultra();
-        return;
-    }
-    
-    // 原始格式解压缩（向后兼容）
-    // 跳过写入的文件后缀名
-    QFile infile2(path_in);
-    infile2.open(QIODevice::ReadOnly);
-    char temp_char_find0;
-    while (infile2.read((char *)&temp_char_find0, 1))
-    {
-        if (temp_char_find0 == '\0')
-        {
-            break;
-        }
-    }
-
-    // 输入数组
-    infile2.read((char *)count_char, 256 * sizeof(int));
-
-    // 统计数目
-    int count = 0;
-    unsigned char count_temp_char;
-    while (infile2.read((char *)&count_temp_char, 1))
-    {
-        count++;
-    }
-    infile2.close();
-
-    // 初始化vec
-    for (int i = 0; i < 256; i++)
-    {
-        if (count_char[i] != 0)
-        {
-            node *temp_n = new node(count_char[i], i);
-            vec_char_final.push_back(temp_n);
-        }
-    }
-
-    // 创建优先队列
-    char_final = std::priority_queue<node *, std::vector<node *>, decltype(&hfutzip::compare)>(vec_char_final.begin(), vec_char_final.end(), &hfutzip::compare);
-    // 成员函数的地址必须加上::还有&
-
-    // 创建哈夫曼树
-    while (char_final.size() != 1)
-    {
-        node *temp_n1 = char_final.top();
-        char_final.pop();
-        node *temp_n2 = char_final.top();
-        char_final.pop();
-        node *temp_n3 = new node(temp_n1->count + temp_n2->count, 0);
-        temp_n3->lchild = temp_n1;
-        temp_n3->rchild = temp_n2;
-        char_final.push(temp_n3);
-    }
-    root = char_final.top();
-
-    // 赋予编码
-    binary_coding_tree(root);
-
-    // 准备工作完成
-
-    // 跳过写入的文件后缀名以及数组
-    QFile infile3(path_in);
-    infile3.open(QIODevice::ReadOnly);
-    while (infile3.read((char *)&temp_char_find0, 1))
-    {
-        if (temp_char_find0 == '\0')
-        {
-            break;
-        }
-    }
-    infile3.read((char *)count_char, 256 * sizeof(int)); // 为了让读取的标号到指定的位置
-
-    // 解压缩，写入文件
-    unsigned char temp_char = 0;
-    now = root; // 初始化now
-    for (int i = 0; i < count - 2; i++)
-    {
-        infile3.read((char *)&temp_char, 1);
-        int k = temp_char;
-        for (int j = 7; j >= 0; j--)
-        {
-            jud_binary_out(((k >> j) & 1));
-        }
-    }
-
-    // 最后两个字节特殊处理
-    unsigned char temp_char2 = 0;
-    infile3.read((char *)&temp_char, 1);
-    infile3.read((char *)&temp_char2, 1);
-    for (int i = temp_char2 - 1; i >= 0; i--) // 记得要减1
-    {
-        jud_binary_out(((temp_char >> i) & 1));
-    }
-    jud_binary_out_finished = 1;
-    jud_binary_out(1);
-
-    delete_node(root);
-
-    emit zip_finished();
+void hfutzip::process_file() {
+    try { SafeCodec::decompress(path_in, path_out); emit zip_finished(); }
+    catch (const std::exception& e) { emit zip_failed(QString::fromUtf8(e.what())); }
 }
 
 QString hfutzip::get_suffix() // 读取文件，得到文件的后缀名
@@ -839,64 +638,18 @@ double hfutzip::estimateCompressionRatio()
     return actualRatio;
 }
 
-int hfutzip::writeVariableLength(QFile &file, int value)
-{
-    // 变长编码写入：1-255用1字节，256-65535用2字节，更大用4字节
-    if (value <= 255) {
-        // 0xxxxxxx 格式：最高位为0
-        unsigned char byte = (unsigned char)value;
-        file.write((char*)&byte, 1);
-        return 1;
-    } else if (value <= 65535) {
-        // 10xxxxxx xxxxxxxx 格式：前两位为10
-        unsigned short encoded = 0x8000 | (unsigned short)value;
-        file.write((char*)&encoded, 2);
-        return 2;
-    } else {
-        // 11xxxxxx + 3字节：前两位为11
-        unsigned char firstByte = 0xC0 | ((value >> 24) & 0x3F);
-        file.write((char*)&firstByte, 1);
-        unsigned char bytes[3];
-        bytes[0] = (value >> 16) & 0xFF;
-        bytes[1] = (value >> 8) & 0xFF;
-        bytes[2] = value & 0xFF;
-        file.write((char*)bytes, 3);
-        return 4;
-    }
+int hfutzip::writeVariableLength(QFile &file, int value) {
+    try { QByteArray bytes; SafeCodec::putVar(bytes, value); return file.write(bytes)==bytes.size()?bytes.size():-1; }
+    catch (const std::exception&) { return -1; }
 }
 
-int hfutzip::readVariableLength(QFile &file)
-{
-    // 变长编码读取
-    unsigned char firstByte;
-    if (file.read((char*)&firstByte, 1) != 1) {
-        return -1; // 读取失败
-    }
-    
-    if ((firstByte & 0x80) == 0) {
-        // 0xxxxxxx 格式：1字节
-        return (int)firstByte;
-    } else if ((firstByte & 0xC0) == 0x80) {
-        // 10xxxxxx xxxxxxxx 格式：2字节
-        unsigned char secondByte;
-        if (file.read((char*)&secondByte, 1) != 1) {
-            return -1;
-        }
-        return ((firstByte & 0x3F) << 8) | secondByte;
-    } else if ((firstByte & 0xC0) == 0xC0) {
-        // 11xxxxxx + 3字节：4字节总长
-        unsigned char bytes[3];
-        if (file.read((char*)bytes, 3) != 3) {
-            return -1;
-        }
-        int value = ((firstByte & 0x3F) << 24) | 
-                   (bytes[0] << 16) | 
-                   (bytes[1] << 8) | 
-                   bytes[2];
-        return value;
-    }
-    
-    return -1; // 不应该到达这里
+int hfutzip::readVariableLength(QFile &file) {
+    char first; if(file.read(&first,1)!=1)return -1;
+    const unsigned head=static_cast<unsigned char>(first);
+    const int size=!(head&128)?1:((head&192)==128?2:4);
+    QByteArray bytes(1,first); bytes+=file.read(size-1);
+    try { SafeCodec::Reader reader{bytes};return reader.variable(); }
+    catch (const std::exception&) { return -1; }
 }
 
 CharMapping hfutzip::createCharacterMapping()

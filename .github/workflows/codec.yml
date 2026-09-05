@@ -1,0 +1,17 @@
+name: 压缩格式安全回归
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: sudo apt-get update && sudo apt-get install -y qt6-base-dev qmake6
+      - name: 地址与未定义行为检查
+        run: |
+          mkdir -p tests/build
+          cd tests/build
+          qmake6 ../codec.pro
+          make -j2
+          ./codec_test
