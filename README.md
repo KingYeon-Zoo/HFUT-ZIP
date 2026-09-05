@@ -30,7 +30,7 @@ Windows 请使用对应 Qt 工具链提供的构建命令。项目未提供 CMak
 
 构建后打开应用，选择输入文件、输出路径及压缩或解压缩模式。验证压缩正确性时，应比较原始文件和解压文件的哈希，并覆盖空文件、单一字节重复、中文文本和二进制数据。
 
-已完成 Qt 应用编译与无界面核心回归验证。代码来源与许可见 [LICENSE](LICENSE)，贡献说明见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+已完成 Qt 应用编译与无界面核心回归验证。许可证见 [LICENSE](LICENSE)，贡献说明见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ## 复核与验证
 
